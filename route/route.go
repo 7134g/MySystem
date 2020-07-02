@@ -18,10 +18,10 @@ func TianTingCtrl(r *gin.Engine) {
 	// 瑶池
 	Yaochi(TTroute)
 
-	// 凌霄殿
-	Lingxiao(TTroute)
-
-	// 兜率宫
-	DouLv(TTroute)
+	//// 凌霄殿
+	//Lingxiao(TTroute)
+	//
+	//// 兜率宫
+	//DouLv(TTroute)
 
 }

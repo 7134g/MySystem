@@ -4,6 +4,7 @@ import (
 	"SkyPalace/database"
 	"SkyPalace/model"
 	"SkyPalace/serializer"
+	"SkyPalace/util"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,5 +18,14 @@ type YcPeachStatusService struct {
 
 func (self YcBaseService) BaseInfo(c *gin.Context) serializer.Response {
 	var v model.YcBase
-	err := database.GetDB().First(&v)
+	err := database.GetDB().Exec("select sum(local) as local,").Find(&v).Error
+	if err != nil {
+		util.Log().Error(err.Error())
+	}
+	return serializer.Response{
+		Code: 1111111,
+		Msg:  "test",
+		Data: v,
+	}
+
 }

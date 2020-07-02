@@ -10,4 +10,6 @@ func Migration() {
 	// 自动迁移模式
 	db := database.GetDB()
 	db.AutoMigrate(&User{})
+	db.AutoMigrate(&YcBase{})
+	db.AutoMigrate(&YcPeachStatus{})
 }

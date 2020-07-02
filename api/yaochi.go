@@ -15,22 +15,22 @@ func Yaochi(c *gin.Context) {
 	}
 }
 
-func PeachForest(c *gin.Context) {
-	s := http.Service{}
-	if err := c.ShouldBind(&s); err == nil {
-		res := s.FuncMethod(c)
-		c.JSON(200, res)
-	} else {
-		c.JSON(200, ErrorResponse(err))
-	}
-}
-
-func PeriAction(c *gin.Context) {
-	s := http.Service{}
-	if err := c.ShouldBind(&s); err == nil {
-		res := s.FuncMethod(c)
-		c.JSON(200, res)
-	} else {
-		c.JSON(200, ErrorResponse(err))
-	}
-}
+//func PeachForest(c *gin.Context) {
+//	s := http.Service{}
+//	if err := c.ShouldBind(&s); err == nil {
+//		res := s.FuncMethod(c)
+//		c.JSON(200, res)
+//	} else {
+//		c.JSON(200, ErrorResponse(err))
+//	}
+//}
+//
+//func PeriAction(c *gin.Context) {
+//	s := http.Service{}
+//	if err := c.ShouldBind(&s); err == nil {
+//		res := s.FuncMethod(c)
+//		c.JSON(200, res)
+//	} else {
+//		c.JSON(200, ErrorResponse(err))
+//	}
+//}
