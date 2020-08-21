@@ -1,8 +1,8 @@
-package http
+package service
 
 import (
+	"SkyPalace/app/tianting/model"
 	"SkyPalace/database"
-	"SkyPalace/model"
 	"SkyPalace/serializer"
 	"SkyPalace/util"
 	"github.com/gin-gonic/gin"

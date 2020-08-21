@@ -1,17 +1,18 @@
 package api
 
 import (
-	"SkyPalace/http"
+	"SkyPalace/app/tianting/service"
+	"SkyPalace/lib"
 	"github.com/gin-gonic/gin"
 )
 
 func Yaochi(c *gin.Context) {
-	s := http.YcBaseService{}
+	s := service.YcBaseService{}
 	if err := c.ShouldBind(&s); err == nil {
 		res := s.BaseInfo(c)
 		c.JSON(200, res)
 	} else {
-		c.JSON(200, ErrorResponse(err))
+		c.JSON(200, lib.ErrorResponse(err))
 	}
 }
 

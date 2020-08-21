@@ -18,7 +18,7 @@ func NewRegister() *gin.Engine {
 		c.JSON(200, "ok")
 	})
 
-	route.TianTingCtrl(r)
+	route.RouteCtrl(r)
 
 	return r
 }

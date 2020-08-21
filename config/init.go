@@ -2,7 +2,7 @@ package config
 
 import (
 	"SkyPalace/database"
-	"SkyPalace/model"
+	"SkyPalace/migration"
 	"SkyPalace/util"
 	"github.com/joho/godotenv"
 	"os"
@@ -24,7 +24,7 @@ func Init() {
 
 	// 连接数据库
 	database.MysqlInit(os.Getenv("MYSQL_DSN"))
-	model.Migration()
+	migration.Migration()
 	database.RedisInit()
 
 }

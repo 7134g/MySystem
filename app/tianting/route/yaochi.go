@@ -1,7 +1,7 @@
 package route
 
 import (
-	"SkyPalace/api"
+	"SkyPalace/app/tianting/api"
 	"github.com/gin-gonic/gin"
 )
 

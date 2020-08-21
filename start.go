@@ -12,7 +12,7 @@ func main() {
 
 	// 装载路由
 	s := server.NewRegister()
-	err := s.Run(":3000")
+	err := s.Run(":8500")
 	if err != nil {
 		util.Log().Panic("服务器启动失败", err)
 	}
