@@ -1,6 +1,9 @@
 package serializer
 
-import "MySystem/model"
+import (
+	"MySystem/app/tianting/model"
+	"MySystem/lib"
+)
 
 // User 用户序列化器
 type User struct {
@@ -13,7 +16,7 @@ type User struct {
 	Permissions int8   `json:"permissions"`
 }
 
-func BuildUser(user model.User) User {
+func BuildUser(user model.TTUser) User {
 	return User{
 		ID:          user.ID,
 		Username:    user.Username,
@@ -25,6 +28,6 @@ func BuildUser(user model.User) User {
 	}
 }
 
-func BuildUserResponse(user model.User) Response {
-	return Response{Data: BuildUser(user)}
+func BuildUserResponse(user model.TTUser) lib.Response {
+	return lib.Response{Data: BuildUser(user)}
 }

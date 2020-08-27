@@ -23,7 +23,8 @@ func Init() {
 	}
 
 	// 连接数据库
-	database.MysqlInit(os.Getenv("MYSQL_DSN"))
+	database.MysqlInit(os.Getenv("MYSQL_TT"), "MYSQL_TT")
+	database.MysqlInit(os.Getenv("MYSQL_BG"), "MYSQL_BG")
 	migration.Migration()
 	database.RedisInit()
 

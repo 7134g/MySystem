@@ -1,8 +1,8 @@
 package api
 
 import (
+	"MySystem/app/tianting/service"
 	"MySystem/lib"
-	"MySystem/service"
 	"github.com/gin-gonic/gin"
 )
 

@@ -8,11 +8,12 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-// MYSQLDB 数据库链接单例
-var MYSQLDB *gorm.DB
+// MYSQLDBTT 数据库链接单例
+var MYSQLDBTT *gorm.DB
+var MYSQLDBBG *gorm.DB
 
 // Database 在中间件中初始化mysql链接
-func MysqlInit(connString string) {
+func MysqlInit(connString string, DBtype string) {
 	db, err := gorm.Open("mysql", connString)
 	db.LogMode(true)
 	// Error
@@ -27,10 +28,19 @@ func MysqlInit(connString string) {
 	//超时
 	db.DB().SetConnMaxLifetime(time.Second * 30)
 
-	MYSQLDB = db
+	if DBtype == "MYSQL_TT" {
+		MYSQLDBTT = db
+	}
 
+	if DBtype == "MYSQL_BG" {
+		MYSQLDBBG = db
+	}
 }
 
-func GetDB() *gorm.DB {
-	return MYSQLDB
+func GetTTDB() *gorm.DB {
+	return MYSQLDBTT
+}
+
+func GetBGDB() *gorm.DB {
+	return MYSQLDBBG
 }

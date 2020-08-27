@@ -3,7 +3,7 @@ package service
 import (
 	"MySystem/app/tianting/model"
 	"MySystem/database"
-	"MySystem/serializer"
+	"MySystem/lib"
 	"MySystem/util"
 	"github.com/gin-gonic/gin"
 )
@@ -16,13 +16,13 @@ type YcBaseService struct {
 type YcPeachStatusService struct {
 }
 
-func (self YcBaseService) BaseInfo(c *gin.Context) serializer.Response {
+func (self YcBaseService) BaseInfo(c *gin.Context) lib.Response {
 	var v model.YcBase
-	err := database.GetDB().Exec("select sum(local) as local,").Find(&v).Error
+	err := database.GetTTDB().Exec("select sum(local) as local,").Find(&v).Error
 	if err != nil {
 		util.Log().Error(err.Error())
 	}
-	return serializer.Response{
+	return lib.Response{
 		Code: 1111111,
 		Msg:  "test",
 		Data: v,

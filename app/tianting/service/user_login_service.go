@@ -1,9 +1,10 @@
 package service
 
 import (
+	"MySystem/app/tianting/model"
+	"MySystem/app/tianting/serializer"
 	"MySystem/database"
-	"MySystem/model"
-	"MySystem/serializer"
+	"MySystem/lib"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +16,7 @@ type UserLoginService struct {
 }
 
 // setSession 设置session
-func (self *UserLoginService) setSession(c *gin.Context, user model.User) {
+func (self *UserLoginService) setSession(c *gin.Context, user model.TTUser) {
 	s := sessions.Default(c)
 	s.Clear()
 	s.Set("user_id", user.ID)
@@ -23,15 +24,15 @@ func (self *UserLoginService) setSession(c *gin.Context, user model.User) {
 }
 
 // Login 用户登录函数
-func (self *UserLoginService) Login(c *gin.Context) serializer.Response {
-	var user model.User
+func (self *UserLoginService) Login(c *gin.Context) lib.Response {
+	var user model.TTUser
 
-	if err := database.MYSQLDB.Where("username = ?", self.UserName).First(&user).Error; err != nil {
-		return serializer.ParamErr("账号或密码错误", err)
+	if err := database.MYSQLDBTT.Where("username = ?", self.UserName).First(&user).Error; err != nil {
+		return lib.ParamErr("账号或密码错误", err)
 	}
 
 	if user.CheckPassword(self.Password) == false {
-		return serializer.ParamErr("账号或密码错误", nil)
+		return lib.ParamErr("账号或密码错误", nil)
 	}
 
 	self.setSession(c, user)

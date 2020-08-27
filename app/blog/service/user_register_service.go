@@ -1,9 +1,10 @@
 package service
 
 import (
+	"MySystem/app/blog/model"
+	"MySystem/app/blog/serializer"
 	"MySystem/database"
-	"MySystem/model"
-	"MySystem/serializer"
+	"MySystem/lib"
 )
 
 // UserRegisterService 管理用户注册服务
@@ -15,11 +16,10 @@ type UserRegisterService struct {
 	Permissions     int8
 }
 
-func (self *UserRegisterService) Register() serializer.Response {
-	user := model.User{
+func (self *UserRegisterService) Register() lib.Response {
+	user := model.BGUser{
 		Nickname:    self.Nickname,
 		Username:    self.UserName,
-		Status:      model.Active,
 		Permissions: 1,
 	}
 
@@ -29,42 +29,42 @@ func (self *UserRegisterService) Register() serializer.Response {
 
 	// 加密密码
 	if err := user.SetPassword(self.Password); err != nil {
-		return serializer.Err(
-			serializer.CodeEncryptError,
+		return lib.Err(
+			lib.CodeEncryptError,
 			"密码加密失败",
 			err,
 		)
 	}
 
 	// 创建用户
-	if err := database.GetDB().Create(&user).Error; err != nil {
-		return serializer.ParamErr("注册失败", err)
+	if err := database.GetBGDB().Create(&user).Error; err != nil {
+		return lib.ParamErr("注册失败", err)
 	}
 
 	return serializer.BuildUserResponse(user)
 }
 
-func (service *UserRegisterService) valid() *serializer.Response {
+func (service *UserRegisterService) valid() *lib.Response {
 	if service.PasswordConfirm != service.Password {
-		return &serializer.Response{
+		return &lib.Response{
 			Code: 40001,
 			Msg:  "两次输入的密码不相同",
 		}
 	}
 
 	count := 0
-	database.GetDB().Model(&model.User{}).Where("nickname = ?", service.Nickname).Count(&count)
+	database.GetBGDB().Model(&model.BGUser{}).Where("nickname = ?", service.Nickname).Count(&count)
 	if count > 0 {
-		return &serializer.Response{
+		return &lib.Response{
 			Code: 40001,
 			Msg:  "昵称被占用",
 		}
 	}
 
 	count = 0
-	database.GetDB().Model(&model.User{}).Where("user_name = ?", service.UserName).Count(&count)
+	database.GetBGDB().Model(&model.BGUser{}).Where("user_name = ?", service.UserName).Count(&count)
 	if count > 0 {
-		return &serializer.Response{
+		return &lib.Response{
 			Code: 40001,
 			Msg:  "用户名已经注册",
 		}

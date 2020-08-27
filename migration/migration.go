@@ -9,7 +9,7 @@ import (
 
 func Migration() {
 	// 自动迁移模式
-	db := database.GetDB()
+	db := database.GetTTDB()
 	db.AutoMigrate(&ttModel.TTUser{})
 	db.AutoMigrate(&ttModel.YcBase{})
 	db.AutoMigrate(&ttModel.YcPeachStatus{})

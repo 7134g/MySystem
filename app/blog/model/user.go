@@ -7,7 +7,7 @@ import (
 )
 
 // User 用户模型
-type User struct {
+type BGUser struct {
 	gorm.Model
 	Username       string
 	PasswordDigest string
@@ -17,26 +17,17 @@ type User struct {
 	Permissions    int8
 }
 
-const (
-	// PassWordCost 密码加密难度
-	PassWordCost = 12
-	// Active 激活用户
-	Active string = "active"
-	// Inactive 未激活用户
-	Inactive string = "inactive"
-	// Suspend 被封禁用户
-	Suspend string = "suspend"
-)
+const PassWordCost = 12
 
 // GetUser 用ID获取用户
-func GetUser(ID interface{}) (User, error) {
-	var user User
-	result := database.GetDB().First(&user, ID)
+func GetUser(ID interface{}) (BGUser, error) {
+	var user BGUser
+	result := database.GetTTDB().First(&user, ID)
 	return user, result.Error
 }
 
 // SetPassword 设置密码
-func (user *User) SetPassword(password string) error {
+func (user *BGUser) SetPassword(password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), PassWordCost)
 	if err != nil {
 		return err
@@ -46,7 +37,7 @@ func (user *User) SetPassword(password string) error {
 }
 
 // CheckPassword 校验密码
-func (user *User) CheckPassword(password string) bool {
+func (user *BGUser) CheckPassword(password string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(user.PasswordDigest), []byte(password))
 	return err == nil
 }
