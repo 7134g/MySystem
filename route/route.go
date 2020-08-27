@@ -1,13 +1,13 @@
 package route
 
 import (
-	BGroute "MySystem/app/blog/route"
-	TTroute "MySystem/app/tianting/route"
+	BGR "MySystem/app/blog/route"
+	TTR "MySystem/app/tianting/route"
 	"github.com/gin-gonic/gin"
 )
 
 func RouteCtrl(r *gin.Engine) {
-	BGroute.Blogroute(r)
-	TTroute.TTroute(r)
-
+	BGR.Blogroute(r)
+	TTR.TTroute(r)
+	//DFR.DFroute(r)
 }

@@ -2,10 +2,16 @@ package route
 
 import (
 	ttApi "MySystem/app/tianting/api"
+	"MySystem/app/tianting/middleware"
 	"github.com/gin-gonic/gin"
+	"os"
 )
 
 func TTroute(r *gin.Engine) {
+	r.Use(middleware.Session(os.Getenv("SESSION_SECRET")))
+	r.Use(middleware.Cors())
+	r.Use(middleware.CurrentUser())
+
 	tt := r.Group("/tt")
 	{
 		//TTroute.Use(middleware.AuthRequired())
@@ -24,5 +30,13 @@ func TTroute(r *gin.Engine) {
 		//
 		//// 兜率宫
 		//DouLv(tt)
+
+		// 需要登录保护的
+		authed := tt.Group("/")
+		authed.Use(middleware.AuthRequired())
+		{
+
+		}
+
 	}
 }

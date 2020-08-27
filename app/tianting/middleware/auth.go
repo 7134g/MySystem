@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"MySystem/model"
-	"MySystem/serializer"
+	"MySystem/app/tianting/model"
+	"MySystem/lib"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
@@ -25,13 +25,13 @@ func CurrentUser() gin.HandlerFunc {
 func AuthRequired() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if user, _ := c.Get("user"); user != nil {
-			if _, ok := user.(*model.User); ok {
+			if _, ok := user.(*model.TTUser); ok {
 				c.Next()
 				return
 			}
 		}
 
-		c.JSON(200, serializer.CheckLogin())
+		c.JSON(200, lib.CheckLogin())
 		c.Abort()
 	}
 }

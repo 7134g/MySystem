@@ -2,7 +2,7 @@ package main
 
 import (
 	"MySystem/config"
-	"MySystem/server"
+	"MySystem/route"
 	"MySystem/util"
 )
 
@@ -11,7 +11,7 @@ func main() {
 	config.Init()
 
 	// 装载路由
-	s := server.NewRegister()
+	s := route.NewRegister()
 	err := s.Run(":8500")
 	if err != nil {
 		util.Log().Panic("服务器启动失败", err)

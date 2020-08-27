@@ -2,7 +2,6 @@ package lib
 
 import (
 	"MySystem/config"
-	"MySystem/serializer"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -49,20 +48,20 @@ func ParamErr(msg string, err error) Response {
 }
 
 // ErrorResponse 返回错误消息
-func ErrorResponse(err error) serializer.Response {
+func ErrorResponse(err error) Response {
 	if ve, ok := err.(validator.ValidationErrors); ok {
 		for _, e := range ve {
 			field := config.T(fmt.Sprintf("Field.%s", e.Field))
 			tag := config.T(fmt.Sprintf("Tag.Valid.%s", e.Tag))
-			return serializer.ParamErr(
+			return ParamErr(
 				fmt.Sprintf("%s%s", field, tag),
 				err,
 			)
 		}
 	}
 	if _, ok := err.(*json.UnmarshalTypeError); ok {
-		return serializer.ParamErr("JSON类型不匹配", err)
+		return ParamErr("JSON类型不匹配", err)
 	}
 
-	return serializer.ParamErr("参数错误", err)
+	return ParamErr("参数错误", err)
 }
