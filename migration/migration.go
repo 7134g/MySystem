@@ -1,8 +1,8 @@
 package migration
 
 import (
-	ttModel "SkyPalace/app/tianting/model"
-	"SkyPalace/database"
+	ttModel "MySystem/app/tianting/model"
+	"MySystem/database"
 )
 
 //执行数据迁移

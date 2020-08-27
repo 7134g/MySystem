@@ -1,7 +1,7 @@
 package model
 
 import (
-	"SkyPalace/model"
+	"MySystem/model"
 )
 
 // User 用户模型

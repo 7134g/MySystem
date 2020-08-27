@@ -1,7 +1,7 @@
 package model
 
 import (
-	"SkyPalace/database"
+	"MySystem/database"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 )

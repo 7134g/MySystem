@@ -1,9 +1,9 @@
 package route
 
 import (
-	blogApi "SkyPalace/app/blog/api"
-	ttApi "SkyPalace/app/tianting/api"
-	ttModelRoute "SkyPalace/app/tianting/route"
+	blogApi "MySystem/app/blog/api"
+	ttApi "MySystem/app/tianting/api"
+	ttModelRoute "MySystem/app/tianting/route"
 	"github.com/gin-gonic/gin"
 )
 

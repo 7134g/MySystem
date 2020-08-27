@@ -1,9 +1,9 @@
 package main
 
 import (
-	"SkyPalace/config"
-	"SkyPalace/server"
-	"SkyPalace/util"
+	"MySystem/config"
+	"MySystem/server"
+	"MySystem/util"
 )
 
 func main() {

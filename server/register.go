@@ -1,8 +1,8 @@
 package server
 
 import (
-	"SkyPalace/middleware"
-	"SkyPalace/route"
+	"MySystem/middleware"
+	"MySystem/route"
 	"github.com/gin-gonic/gin"
 	"os"
 )

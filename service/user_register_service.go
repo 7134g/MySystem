@@ -1,9 +1,9 @@
 package service
 
 import (
-	"SkyPalace/database"
-	"SkyPalace/model"
-	"SkyPalace/serializer"
+	"MySystem/database"
+	"MySystem/model"
+	"MySystem/serializer"
 )
 
 // UserRegisterService 管理用户注册服务

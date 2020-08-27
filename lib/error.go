@@ -1,8 +1,8 @@
 package lib
 
 import (
-	"SkyPalace/config"
-	"SkyPalace/serializer"
+	"MySystem/config"
+	"MySystem/serializer"
 	"encoding/json"
 	"fmt"
 	"gopkg.in/go-playground/validator.v8"

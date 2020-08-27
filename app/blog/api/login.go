@@ -1,8 +1,8 @@
 package api
 
 import (
-	"SkyPalace/lib"
-	"SkyPalace/service"
+	"MySystem/lib"
+	"MySystem/service"
 	"github.com/gin-gonic/gin"
 )
 

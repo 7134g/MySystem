@@ -1,8 +1,8 @@
 package api
 
 import (
-	"SkyPalace/app/tianting/service"
-	"SkyPalace/lib"
+	"MySystem/app/tianting/service"
+	"MySystem/lib"
 	"github.com/gin-gonic/gin"
 )
 

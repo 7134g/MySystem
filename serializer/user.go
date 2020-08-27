@@ -1,6 +1,6 @@
 package serializer
 
-import "SkyPalace/model"
+import "MySystem/model"
 
 // User 用户序列化器
 type User struct {

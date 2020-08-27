@@ -1,8 +1,8 @@
 package route
 
 //import (
-//	"SkyPalace/api"
-//	"SkyPalace/middleware"
+//	"MySystem/api"
+//	"MySystem/middleware"
 //	"github.com/gin-gonic/gin"
 //)
 //

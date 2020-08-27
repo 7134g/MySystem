@@ -1,9 +1,9 @@
 package service
 
 import (
-	"SkyPalace/database"
-	"SkyPalace/model"
-	"SkyPalace/serializer"
+	"MySystem/database"
+	"MySystem/model"
+	"MySystem/serializer"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )

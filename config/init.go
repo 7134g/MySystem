@@ -1,9 +1,9 @@
 package config
 
 import (
-	"SkyPalace/database"
-	"SkyPalace/migration"
-	"SkyPalace/util"
+	"MySystem/database"
+	"MySystem/migration"
+	"MySystem/util"
 	"github.com/joho/godotenv"
 	"os"
 )

@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"SkyPalace/model"
-	"SkyPalace/serializer"
+	"MySystem/model"
+	"MySystem/serializer"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )

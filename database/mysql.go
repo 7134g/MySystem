@@ -1,7 +1,7 @@
 package database
 
 import (
-	"SkyPalace/util"
+	"MySystem/util"
 	"github.com/jinzhu/gorm"
 	"time"
 

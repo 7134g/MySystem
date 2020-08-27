@@ -1,7 +1,7 @@
 package database
 
 import (
-	"SkyPalace/util"
+	"MySystem/util"
 	"github.com/go-redis/redis"
 	"os"
 	"strconv"

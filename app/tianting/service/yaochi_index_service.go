@@ -1,10 +1,10 @@
 package service
 
 import (
-	"SkyPalace/app/tianting/model"
-	"SkyPalace/database"
-	"SkyPalace/serializer"
-	"SkyPalace/util"
+	"MySystem/app/tianting/model"
+	"MySystem/database"
+	"MySystem/serializer"
+	"MySystem/util"
 	"github.com/gin-gonic/gin"
 )
 
