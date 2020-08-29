@@ -54,7 +54,7 @@ func (s *UserRegisterService) valid(col *mongo.Collection) *lib.Response {
 
 	if s.PasswordConfirm != s.Password {
 		return &lib.Response{
-			Code: 40001,
+			Code: lib.CodeParamErr,
 			Msg:  "两次输入的密码不相同",
 		}
 	}
@@ -66,7 +66,7 @@ func (s *UserRegisterService) valid(col *mongo.Collection) *lib.Response {
 	err = col.FindOne(context.Background(), filter).Decode(&user)
 	if err == nil {
 		return &lib.Response{
-			Code: 40001,
+			Code: lib.CodeParamErr,
 			Msg:  "用户已存在",
 		}
 	}
@@ -75,7 +75,7 @@ func (s *UserRegisterService) valid(col *mongo.Collection) *lib.Response {
 	//database.MONGODBBG.Model(&model.BGUser{}).Where("nickname = ?", s.Nickname).Count(&count)
 	//if count > 0 {
 	//	return &lib.Response{
-	//		Code: 40001,
+	//		Code: lib.CodeParamErr,
 	//		Msg:  "昵称被占用",
 	//	}
 	//}

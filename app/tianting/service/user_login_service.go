@@ -16,26 +16,26 @@ type UserLoginService struct {
 }
 
 // setSession 设置session
-func (self *UserLoginService) setSession(c *gin.Context, user model.TTUser) {
-	s := sessions.Default(c)
-	s.Clear()
-	s.Set("user_id", user.ID)
-	_ = s.Save()
+func (s *UserLoginService) setSession(c *gin.Context, user model.TTUser) {
+	session := sessions.Default(c)
+	session.Clear()
+	session.Set("user_id", user.ID)
+	_ = session.Save()
 }
 
 // Login 用户登录函数
-func (self *UserLoginService) Login(c *gin.Context) lib.Response {
+func (s *UserLoginService) Login(c *gin.Context) lib.Response {
 	var user model.TTUser
 
-	if err := database.MYSQLDBTT.Where("username = ?", self.UserName).First(&user).Error; err != nil {
+	if err := database.MYSQLDBTT.Where("username = ?", s.UserName).First(&user).Error; err != nil {
 		return lib.ParamErr("账号或密码错误", err)
 	}
 
-	if user.CheckPassword(self.Password) == false {
+	if user.CheckPassword(s.Password) == false {
 		return lib.ParamErr("账号或密码错误", nil)
 	}
 
-	self.setSession(c, user)
+	s.setSession(c, user)
 
 	return serializer.BuildUserResponse(user)
 }

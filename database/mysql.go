@@ -15,11 +15,11 @@ var MYSQLDBTT *gorm.DB
 // Database 在中间件中初始化mysql链接
 func MysqlInit(connString string, DBtype string) {
 	db, err := gorm.Open("mysql", connString)
-	db.LogMode(true)
 	// Error
 	if err != nil {
 		util.Log().Panic("连接数据库不成功", err)
 	}
+	_ = db.LogMode(true)
 
 	if gin.Mode() == "release" {
 		db.LogMode(false)

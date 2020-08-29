@@ -16,20 +16,20 @@ type UserRegisterService struct {
 	Permissions     int8
 }
 
-func (self *UserRegisterService) Register() lib.Response {
+func (s *UserRegisterService) Register() lib.Response {
 	user := model.TTUser{
-		Nickname:    self.Nickname,
-		Username:    self.UserName,
+		Nickname:    s.Nickname,
+		Username:    s.UserName,
 		Status:      model.Active,
 		Permissions: 1,
 	}
 
-	if err := self.valid(); err != nil {
+	if err := s.valid(); err != nil {
 		return *err
 	}
 
 	// 加密密码
-	if err := user.SetPassword(self.Password); err != nil {
+	if err := user.SetPassword(s.Password); err != nil {
 		return lib.Err(
 			lib.CodeEncryptError,
 			"密码加密失败",
@@ -45,28 +45,28 @@ func (self *UserRegisterService) Register() lib.Response {
 	return serializer.BuildUserResponse(user)
 }
 
-func (service *UserRegisterService) valid() *lib.Response {
-	if service.PasswordConfirm != service.Password {
+func (s *UserRegisterService) valid() *lib.Response {
+	if s.PasswordConfirm != s.Password {
 		return &lib.Response{
-			Code: 40001,
+			Code: lib.CodeParamErr,
 			Msg:  "两次输入的密码不相同",
 		}
 	}
 
 	count := 0
-	database.GetTTDB().Model(&model.TTUser{}).Where("nickname = ?", service.Nickname).Count(&count)
+	database.GetTTDB().Model(&model.TTUser{}).Where("nickname = ?", s.Nickname).Count(&count)
 	if count > 0 {
 		return &lib.Response{
-			Code: 40001,
+			Code: lib.CodeParamErr,
 			Msg:  "昵称被占用",
 		}
 	}
 
 	count = 0
-	database.GetTTDB().Model(&model.TTUser{}).Where("user_name = ?", service.UserName).Count(&count)
+	database.GetTTDB().Model(&model.TTUser{}).Where("user_name = ?", s.UserName).Count(&count)
 	if count > 0 {
 		return &lib.Response{
-			Code: 40001,
+			Code: lib.CodeParamErr,
 			Msg:  "用户名已经注册",
 		}
 	}
