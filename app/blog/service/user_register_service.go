@@ -5,6 +5,9 @@ import (
 	"MySystem/app/blog/serializer"
 	"MySystem/database"
 	"MySystem/lib"
+	"context"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // UserRegisterService 管理用户注册服务
@@ -16,19 +19,20 @@ type UserRegisterService struct {
 	Permissions     int8
 }
 
-func (self *UserRegisterService) Register() lib.Response {
+func (s *UserRegisterService) Register() lib.Response {
 	user := model.BGUser{
-		Nickname:    self.Nickname,
-		Username:    self.UserName,
+		Username:    s.UserName,
+		Nickname:    s.Nickname,
 		Permissions: 1,
 	}
+	userCol := database.MONGODBBG.Collection("user")
 
-	if err := self.valid(); err != nil {
+	if err := s.valid(userCol); err != nil {
 		return *err
 	}
 
 	// 加密密码
-	if err := user.SetPassword(self.Password); err != nil {
+	if err := user.SetPassword(s.Password); err != nil {
 		return lib.Err(
 			lib.CodeEncryptError,
 			"密码加密失败",
@@ -37,38 +41,45 @@ func (self *UserRegisterService) Register() lib.Response {
 	}
 
 	// 创建用户
-	if err := database.GetBGDB().Create(&user).Error; err != nil {
+	if _, err := userCol.InsertOne(context.TODO(), user); err != nil {
 		return lib.ParamErr("注册失败", err)
 	}
 
 	return serializer.BuildUserResponse(user)
 }
 
-func (service *UserRegisterService) valid() *lib.Response {
-	if service.PasswordConfirm != service.Password {
+func (s *UserRegisterService) valid(col *mongo.Collection) *lib.Response {
+	var err error
+	var user model.BGUser
+
+	if s.PasswordConfirm != s.Password {
 		return &lib.Response{
 			Code: 40001,
 			Msg:  "两次输入的密码不相同",
 		}
 	}
 
-	count := 0
-	database.GetBGDB().Model(&model.BGUser{}).Where("nickname = ?", service.Nickname).Count(&count)
-	if count > 0 {
+	// 检查用户是否存在
+	filter := bson.D{
+		{"username", s.UserName},
+	}
+	err = col.FindOne(context.Background(), filter).Decode(&user)
+	if err == nil {
 		return &lib.Response{
 			Code: 40001,
-			Msg:  "昵称被占用",
+			Msg:  "用户已存在",
 		}
 	}
 
-	count = 0
-	database.GetBGDB().Model(&model.BGUser{}).Where("user_name = ?", service.UserName).Count(&count)
-	if count > 0 {
-		return &lib.Response{
-			Code: 40001,
-			Msg:  "用户名已经注册",
-		}
-	}
+	//count := 0
+	//database.MONGODBBG.Model(&model.BGUser{}).Where("nickname = ?", s.Nickname).Count(&count)
+	//if count > 0 {
+	//	return &lib.Response{
+	//		Code: 40001,
+	//		Msg:  "昵称被占用",
+	//	}
+	//}
+	//
 
 	return nil
 }

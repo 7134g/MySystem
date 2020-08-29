@@ -2,18 +2,19 @@ package model
 
 import (
 	"MySystem/database"
-	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
+	"time"
 )
 
 // User 用户模型
 type BGUser struct {
-	gorm.Model
+	ID             uint
 	Username       string
 	PasswordDigest string
 	Nickname       string
 	Status         string
-	Avatar         string `gorm:"size:1000"`
+	Avatar         string
+	CreatedAt      time.Time
 	Permissions    int8
 }
 

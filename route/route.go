@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RouteCtrl(r *gin.Engine) {
+func Control(r *gin.Engine) {
 	BGR.Blogroute(r)
 	TTR.TTroute(r)
 	//DFR.DFroute(r)

@@ -7,13 +7,13 @@ import (
 
 // User 用户序列化器
 type User struct {
-	ID          uint   `json:"id"`
-	Username    string `json:"user_name"`
-	Nickname    string `json:"nickname"`
-	Status      string `json:"status"`
-	Avatar      string `json:"avatar"`
-	CreatedAt   int64  `json:"created_at"`
-	Permissions int8   `json:"permissions"`
+	ID          uint   `bson:"id"`
+	Username    string `bson:"user_name"`
+	Nickname    string `bson:"nickname"`
+	Status      string `bson:"status"`
+	Avatar      string `bson:"avatar"`
+	CreatedAt   int64  `bson:"created_at"`
+	Permissions int8   `bson:"permissions"`
 }
 
 func BuildUser(user model.BGUser) User {

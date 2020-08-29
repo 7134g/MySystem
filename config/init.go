@@ -2,7 +2,6 @@ package config
 
 import (
 	"MySystem/database"
-	"MySystem/migration"
 	"MySystem/util"
 	"github.com/joho/godotenv"
 	"os"
@@ -23,9 +22,6 @@ func Init() {
 	}
 
 	// 连接数据库
-	database.MysqlInit(os.Getenv("MYSQL_TT"), "MYSQL_TT")
-	database.MysqlInit(os.Getenv("MYSQL_BG"), "MYSQL_BG")
-	migration.Migration()
-	database.RedisInit()
+	database.DBInit()
 
 }
